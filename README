@@ -1,0 +1,628 @@
+                       utthesis2 2.0ame
+                         February 2003
+
+                     Ayman M. El-Khashab
+                     ayman@austin.rr.com
+
+This package provides a LaTeX 2e template and style file to produce a
+master's or PhD. thesis that meets the requirements of the Graduate
+School of The University of Texas at Austin.
+
+The included files are based on utthesis.doc and utthesis.sty, which
+were originally released by Dinesh Das in January 1995. They were
+modified slightly by Bert Kay in 1996, by James A. Bednar in 1997, and
+by Ayman M. El-Khashab in February 2003.  This February 2003 release
+fixes several problematic interactions with other LaTeX packages, and
+other bugs.  The details of the changes are attached to the end of
+this file.
+
+To get started, first make sure you can compile the included file
+thesis.tex using your version of latex and/or pdflatex.  If that
+works, then simply load thesis.tex into an editor and add your own
+information as described in the comments in thesis.tex.
+
+The PDF version of the thesis generated with pdflatex was verified to
+meet the requirements of the graduate school as of February 2002 by
+Lynn Renegar, Doctoral Evaluator.  Of course, it is crucial that you
+actually check your own generated documents, both in PDF and printed
+form, against the published guidelines of the graduate school.  The
+requirements may have changed by the time you read this, and your
+results may differ depending on your latex version, printer, degree
+type, etc.
+
+
+OPTIONAL PACKAGES
+
+This template should work with any LaTeX 2e installation, and does not
+require any external packages.  It should also work fine with such
+packages, and I highly recommend those listed below.  If you want to
+use these packages, first make sure that they are installed on your
+system (e.g. "locate natbib.sty" in UNIX).  If they are not installed,
+you can download them from CTAN, the Comprehensive TeX Archive
+Network, and then put them in the same directory as you have placed
+these files.  Then add \usepackage{<package-name>} to the preamble of
+thesis.tex.  CTAN is mirrored at many locations worldwide, including
+http://www.ctan.org/.
+
+
+\usepackage{natbib}: provides support for author-year citations, as in
+"Bednar (2002)", and better numeric citation handling.
+
+
+\usepackage{hyperref}: when used with pdflatex, enables your table of
+contents, citations, etc. to be hyperlinked.  The hyperlinks make it
+much, much easier for your reader to navigate the PDF file.  For more
+information about hyperref and pdflatex see
+http://www.tug.org/applications/pdftex/.
+
+
+\usepackage{tocbibind}: ensures that automatically-generated items
+like the bibliography, list of figures, etc. show up in the table of
+contents.  This is especially important with pdflatex/hyperref,
+because tocbibind ensures that those entries are hyperlinked as well.
+If you use tocbibind, you should remove the redundant \addcontentsline
+line from thesis.tex.
+
+
+\usepackage{graphics}: allows images to be included in the document.
+Regular LaTeX supports only Encapsulated PostScript (EPS) images, but
+PDFLaTeX supports JPEG, TIFF, PNG, and PDF formats, which makes
+graphics inclusion much simpler.
+
+
+DIFFERENCES FROM PREVIOUS RELEASES
+
+The only differences introduced by JAB from the BKay 1996 release are
+to remove the extra spacing on the title page, which causes problems
+with multi-line titles, and to add the "Certification of approved
+version" page with your committee members.  Differences introduced by
+AME were to fix problems caused by old latex code (particularly of the
+doublespace package) as well as problems with pdf bookmarks in the
+abstract, TOC, list of figures/tables.  The detailed diffs follow,
+and can be ignored entirely unless you are trying to integrate
+multiple releases of these files.
+
+Comparing the 1996 BKay release with the 2002 JAB release:
+
+$ diff thesis.tex  ../utthesis-latex2e/utthesis.doc 
+3,5c3
+< %%% File: utthesis2.doc, version 2.0jab, February 2002
+< %%%
+< %%% Based on: utthesis.doc, version 2.0, January 1995
+---
+> %%% File: utthesis.doc, version 2.0, January 1995
+29c27
+< \usepackage {utthesis2}              %% Preamble.
+---
+> \usepackage {utthesis}               %% Preamble.
+70,90d67
+< % \renewcommand{\thesiscosupervisor}{}
+<                                      %% Your PhD. thesis co-supervisor; if any.
+<                                      %% Use mixed case and don't use any titles
+<                                      %% or degrees. Uncomment if you
+<                                      %% have a co-supervisor.
+<                                      %% (Ignored for Master's)
+< 
+< \renewcommand{\thesiscommitteemembera}{}
+< \renewcommand{\thesiscommitteememberb}{}
+< \renewcommand{\thesiscommitteememberc}{}
+< \renewcommand{\thesiscommitteememberd}{}
+< % \renewcommand{\thesiscommitteemembere}{}
+< % \renewcommand{\thesiscommitteememberf}{}
+< % \renewcommand{\thesiscommitteememberg}{}
+< % \renewcommand{\thesiscommitteememberh}{}
+< % \renewcommand{\thesiscommitteememberi}{}
+<                                      %% Define your other committee members here;
+<                                      %% use mixed case and don't use any titles
+<                                      %% or degrees.  Uncomment as many
+<                                      %% as neccessary. (Ignored for Master's)
+< 
+141,142d117
+< \thesiscertificationpage             %% Generate the PhD. certification page.
+< 
+145c120
+< %\thesissignaturepage                %% Generate the Master's signature page.
+---
+> \thesissignaturepage                 %% Generate the signature page.
+168,170d142
+< 
+< \addcontentsline {toc}{chapter}{Bibliography} 
+<                                      %% Force Bibliography to appear in contents
+
+
+$ diff utthesis2.sty   ../utthesis-latex2e/utthesis.sty 
+3,5c3
+< %%% File: utthesis2.sty, version 2.0jab, February 2002
+< %%%
+< %%% Based on: utthesis.sty, version 2.0, January 1995
+---
+> %%% File: utthesis.sty, version 2.0, January 1995
+8d5
+< %%%
+12,19d8
+< %%% Modified by James A. Bednar in March 1999.
+< %%% My comments contain the string  ``JAB''.
+< %%%
+< %%% Extended by James A. Bednar in February 2002, based on 
+< %%% portions of utdiss2-02.sty released on 29 November 2001
+< %%% by Craig McCluskey (mccluskey@mail.utexas.edu).
+< %%% His comments contain the string ``cwm''.
+< %%%
+181,183c170,171
+< %% JAB
+< \typeout{*************************************************************}
+< \typeout{** UT Austin Thesis Style File, version 2.0jab, February 2002}
+---
+> \typeout{*************************************************************} 
+> \typeout{** UT Austin Thesis Style File, version 2.0, January 1995    }
+187d174
+< \typeout{** Modified by Bert Kay and James A. Bednar                  }
+214,223d200
+< \newcommand{\thesiscosupervisor}{}
+< \newcommand{\thesiscommitteemembera}{}
+< \newcommand{\thesiscommitteememberb}{}
+< \newcommand{\thesiscommitteememberc}{}
+< \newcommand{\thesiscommitteememberd}{}
+< \newcommand{\thesiscommitteemembere}{}
+< \newcommand{\thesiscommitteememberf}{}
+< \newcommand{\thesiscommitteememberg}{}
+< \newcommand{\thesiscommitteememberh}{}
+< \newcommand{\thesiscommitteememberi}{}
+270,271d246
+< 
+< \newcommand{\@emptycommand}{} %% JAB  Used when testing if a command is defined but empty
+333,334c308
+<       % Commented-out by JAB 08Mar99 -- didn't leave any room for two-line title
+<       %\strut \vfill    % Added BKay 17Oct96 -- title was too high on the page
+---
+>       \strut \vfill    % Added BKay 17Oct96 -- title was too high on the page
+354,355c328
+< %%% Command to generate old-style signature page, which as
+< %%% of 2/2002 still seems to be used in Master's thesis.
+---
+> %%% Command to generate signature page.
+381,457d353
+< %%% Generates a signature line with the given name
+< %%% Adapted from 26 Aug 2001 cwm by JAB
+< %%%
+< \newcommand{\thesissigline}[1]{%
+<   \leftline{\hbox to 2.5in{}\hrulefill}
+<   \endgraf
+<   \vspace*{-18pt}
+<   \leftline{\hbox to 2.53in{}{#1}}}
+< 
+< %%%
+< %%% Generates signature lines for the committee
+< %%% Adapted from 26 Aug 2001 cwm by JAB
+< %%% Accepts up to two supervisors and eight other members
+< %%%
+< \newcommand{\thesiscertificationsignaturelines}{
+<      \ifx\thesissupervisor\@emptycommand\relax\else
+<         \thesissigline{\thesissupervisor, Supervisor}
+<      \fi
+<      \ifx\thesiscosupervisor\@emptycommand\relax\else
+<         \thesissigline{\thesiscosupervisor, Supervisor}
+<      \fi
+<      \ifx\thesiscommitteemembera\@emptycommand\relax\else
+<         \thesissigline{\thesiscommitteemembera}
+<      \fi
+<      \ifx\thesiscommitteememberb\@emptycommand\relax\else
+<         \thesissigline{\thesiscommitteememberb}
+<      \fi
+<      \ifx\thesiscommitteememberc\@emptycommand\relax\else
+<         \thesissigline{\thesiscommitteememberc}
+<      \fi
+<      \ifx\thesiscommitteememberd\@emptycommand\relax\else
+<         \thesissigline{\thesiscommitteememberd}
+<      \fi
+<      \ifx\thesiscommitteemembere\@emptycommand\relax\else
+<         \thesissigline{\thesiscommitteemembere}
+<      \fi
+<      \ifx\thesiscommitteememberf\@emptycommand\relax\else
+<         \thesissigline{\thesiscommitteememberf}
+<      \fi
+<      \ifx\thesiscommitteememberg\@emptycommand\relax\else
+<         \thesissigline{\thesiscommitteememberg}
+<      \fi
+<      \ifx\thesiscommitteememberh\@emptycommand\relax\else
+<         \thesissigline{\thesiscommitteememberh}
+<      \fi
+<      \ifx\thesiscommitteememberi\@emptycommand\relax\else
+<         \thesissigline{\thesiscommitteememberi}
+<      \fi
+<      }
+< 
+< %%%
+< %%% Committee Certification Page
+< %%%
+< %%% Adapted from 26 Aug 2001 cwm by JAB
+< %%%
+< \newlength{\@tmplength}
+< \newcommand{\thesiscertificationpage}{
+<     \thispagestyle{empty}
+<     \centerline{The Dissertation Committee for \thesisauthor}
+<     \centerline{certifies that this is the approved version of the following dissertation:}
+<     \vspace*{75pt}
+<     \setlength\@tmplength\baselineskip
+<     \baselineskip=16.5pt plus .5pt minus .2 pt
+<     \baselineskip=28.5pt plus .5pt minus .2 pt
+<     \begin{center}
+<     \large\bf\@thesistitle
+<     \end{center}
+<     \vspace*{55pt}
+<     \leftline{\hbox to 2.5in{}Committee:\hfill}
+<     %\bigskip\medskip\smallskip
+<     \bigskip
+<     \thesiscertificationsignaturelines
+<     \setlength\baselineskip\@tmplength
+<     \clearpage}
+< 
+< 
+< %%%
+529,530c425
+<        %% JAB: added other acks
+<        of Texas at Austin, and extended by Bert Kay and James A. Bednar.
+---
+>        of Texas at Austin.
+
+
+Comparing the 2002 JAB release with the 2003 AME release:
+
+*** /tmp/utthesis2.sty.txt	Tue Feb 18 20:26:50 2003
+--- utthesis2.sty	Tue Feb 18 21:00:53 2003
+***************
+*** 1,6 ****
+  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+  %%%
+! %%% File: utthesis2.sty, version 2.0jab, February 2002
+  %%%
+  %%% Based on: utthesis.sty, version 2.0, January 1995
+  %%% =============================================
+--- 1,6 ----
+  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+  %%%
+! %%% File: utthesis2.sty, version 2.0ame, February 2003
+  %%%
+  %%% Based on: utthesis.sty, version 2.0, January 1995
+  %%% =============================================
+***************
+*** 17,22 ****
+--- 17,28 ----
+  %%% by Craig McCluskey (mccluskey@mail.utexas.edu).
+  %%% His comments contain the string ``cwm''.
+  %%%
++ %%% Modified by Ayman M. El-Khashab in February 2003, to fix
++ %%% problems caused by old latex code (particularly of the doublespace
++ %%% package) as well as problems with pdf bookmarks in the abstract,
++ %%% TOC, list of figures/tables.
++ %%% My comments contain the string ``AME''
++ %%%
+  %%% This file is free and can be modified or distributed as long as
+  %%% you meet the following conditions:
+  %%%
+***************
+*** 178,191 ****
+  %%%
+  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+  
+! %% JAB
+! \typeout{*************************************************************}
+! \typeout{** UT Austin Thesis Style File, version 2.0jab, February 2002}
+! \typeout{** Written by Dinesh Das                                     }
+! \typeout{**            Dept. of Computer Sciences                     }
+! \typeout{**            The University of Texas at Austin              }
+! \typeout{** Modified by Bert Kay and James A. Bednar                  }
+! \typeout{*************************************************************}
+  
+  %%%
+  %%% Set up page layout parameters.
+--- 184,197 ----
+  %%%
+  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+  
+! %% JAB/AME
+! \typeout{****************************************************************}
+! \typeout{** UT Austin Thesis Style File, version 2.0ame, February 2003   }
+! \typeout{** Written by Dinesh Das                                        }
+! \typeout{**            Dept. of Computer Sciences                        }
+! \typeout{**            The University of Texas at Austin                 }
+! \typeout{** Modified by Bert Kay, James A. Bednar, and Ayman El-Khashab  }
+! \typeout{****************************************************************}
+  
+  %%%
+  %%% Set up page layout parameters.
+***************
+*** 271,279 ****
+  \newcommand{\@emptycommand}{} %% JAB  Used when testing if a command is defined but empty
+  \newcommand{\@defaultbaselinestretch}{1.5}
+  \newcommand{\@base}[1]{\renewcommand{\baselinestretch}{#1}}
+! \newcommand{\singlespace}{\renewcommand{\@defaultbaselinestretch}{1.1}}
+! \newcommand{\oneandhalfspace}{\renewcommand{\@defaultbaselinestretch}{1.5}}
+! \newcommand{\doublespace}{\renewcommand{\@defaultbaselinestretch}{1.7}}
+  \newcommand{\@thesistitle}{\textbf{\thesistitletypesize \thesistitle}}
+  \newcommand{\@thesisapprovedby}%
+      {\textbf{\thesisapprovedbytypesize \thesisapprovedby}}
+--- 277,288 ----
+  \newcommand{\@emptycommand}{} %% JAB  Used when testing if a command is defined but empty
+  \newcommand{\@defaultbaselinestretch}{1.5}
+  \newcommand{\@base}[1]{\renewcommand{\baselinestretch}{#1}}
+! 
+! %%% AME: Changed to use setspace environments
+! \newcommand{\singlespace}{singlespacing}
+! \newcommand{\oneandhalfspace}{onehalfspacing}
+! \newcommand{\doublespace}{\doublespacing}
+! 
+  \newcommand{\@thesistitle}{\textbf{\thesistitletypesize \thesistitle}}
+  \newcommand{\@thesisapprovedby}%
+      {\textbf{\thesisapprovedbytypesize \thesisapprovedby}}
+***************
+*** 458,464 ****
+  %%% Environment to generate abstract page.
+  %%%
+  \newenvironment{thesisabstract}
+!     {\addcontentsline{toc}{chapter}{Abstract}
+       \vspace*{0mm}
+       \begin{center}
+         \setlength{\unitlength}{1mm}
+--- 467,474 ----
+  %%% Environment to generate abstract page.
+  %%%
+  \newenvironment{thesisabstract}
+!     {\chapter*{}
+!      \addcontentsline{toc}{chapter}{Abstract}
+       \vspace*{0mm}
+       \begin{center}
+         \setlength{\unitlength}{1mm}
+***************
+*** 526,534 ****
+         trademark of the American Mathematical Society.  The macros used in
+         formatting this \lowercase\expandafter{\thesistype} were written
+         by Dinesh Das, Department of Computer Sciences, The University
+!        %% JAB: added other acks
+!        of Texas at Austin, and extended by Bert Kay and James A. Bednar.
+!     } by \thesistypist.}
+  
+  \newcommand{\@chapteralignment}{\centering}
+  \renewcommand{\chapter}{\clearpage
+--- 536,544 ----
+         trademark of the American Mathematical Society.  The macros used in
+         formatting this \lowercase\expandafter{\thesistype} were written
+         by Dinesh Das, Department of Computer Sciences, The University
+!        %% AME: added other acks
+!        of Texas at Austin, and extended by Bert Kay, James A. Bednar, and Ayman El-Khashab.
+! 	  } by \thesistypist.}
+  
+  \newcommand{\@chapteralignment}{\centering}
+  \renewcommand{\chapter}{\clearpage
+***************
+*** 642,647 ****
+--- 652,658 ----
+  %%% Command from report.cls, (c) LaTeX3 Project.
+  %%%
+  \renewcommand\listoftables{%
++     \clearpage  %%% AME 
+      \if@twocolumn
+        \@restonecoltrue\onecolumn
+      \else
+***************
+*** 654,659 ****
+--- 665,671 ----
+      \if@restonecol\twocolumn\fi
+      }
+  \renewcommand\listoffigures{%
++     \clearpage  %%% AME 
+      \if@twocolumn
+        \@restonecoltrue\onecolumn
+      \else
+***************
+*** 748,821 ****
+  \def\timestamp{\thesistime, \thesisdayofweek, \thesisdate}
+  
+  %%%
+! %%% Commands for spacing.  Some parts from spacing.sty by Stephen Page.
+  %%% 
+! \ifx\undefined\selectfont
+! \def\@setsize#1#2#3#4{\@nomath#1
+!    \let\@currsize#1\baselineskip
+!    #2\baselineskip\baselinestretch\baselineskip
+!    \parskip\baselinestretch\parskip
+!    \setbox\strutbox\hbox{\vrule height.7\baselineskip
+!       depth.3\baselineskip width\z@}
+!    \normalbaselineskip\baselineskip#3#4}
+! \else
+! \def\@newbaseline{%
+!     \ifx\undefined\setnew@baselineskip
+!       \baselineskip\f@baselineskip\relax
+!     \else
+!       \setnew@baselineskip
+!     \fi
+!     \baselineskip\baselinestretch\baselineskip
+!     \setbox\strutbox\hbox{\vrule\@height.7\baselineskip
+!     \@depth.3\baselineskip \@width\z@}%
+!     \normalbaselineskip\baselineskip}
+! \fi
+! %%%
+! %%% Reset baselinestretch within footnotes and floats. Originally stolen
+! %%% from Stanford thesis style.
+! %%%
+! \def\@xfloat#1[#2]{\ifhmode \@bsphack\@floatpenalty -\@Mii\else
+!    \@floatpenalty-\@Miii\fi\def\@captype{#1}\ifinner
+!       \@parmoderr\@floatpenalty\z@
+!     \else\@next\@currbox\@freelist{\@tempcnta\csname ftype@#1\endcsname
+!        \multiply\@tempcnta\@xxxii\advance\@tempcnta\sixt@@n
+!        \@tfor \@tempa :=#2\do
+!                         {\if\@tempa h\advance\@tempcnta \@ne\fi
+!                          \if\@tempa t\advance\@tempcnta \tw@\fi
+!                          \if\@tempa b\advance\@tempcnta 4\relax\fi
+!                          \if\@tempa p\advance\@tempcnta 8\relax\fi
+!          }\global\count\@currbox\@tempcnta}\@fltovf\fi
+!     \global\setbox\@currbox\vbox\bgroup 
+!     \def\baselinestretch{1}
+!     \ifx\undefined\selectfont
+!     \small\normalsize
+!     \else
+!     \@newbaseline
+!     \fi
+!     \boxmaxdepth\z@
+!     \hsize\columnwidth \@parboxrestore}
+! \long\def\@footnotetext#1{\insert\footins{\def\baselinestretch{1}\footnotesize
+!     \interlinepenalty\interfootnotelinepenalty 
+      \splittopskip\footnotesep
+      \splitmaxdepth \dp\strutbox \floatingpenalty \@MM
+!     \hsize\columnwidth \@parboxrestore
+!    \edef\@currentlabel{\csname p@footnote\endcsname\@thefnmark}\@makefntext
+!     {\rule{\z@}{\footnotesep}\ignorespaces
+!       #1\strut}}}
+! %%%
+! %%% Stolen from MIT.
+! %%%
+! \def\spacing#1{\par%
+!  \begingroup
+!  \def\baselinestretch{#1}
+!  \ifx\undefined\selectfont
+!  \ifx\@currsize\normalsize\@normalsize\else\@currsize\fi
+!  \else
+!  \@newbaseline
+!  \fi}
+! \def\endspacing{\par
+!  \vskip \parskip
+!  \vskip \baselineskip
+!  \endgroup
+!  \vskip -\parskip
+!  \vskip -\baselineskip}
+--- 760,894 ----
+  \def\timestamp{\thesistime, \thesisdayofweek, \thesisdate}
+  
+  %%%
+! %%% Spacing commands
+! %%%
+! %%% Most from setspace.sty by Geoffrey Tobin 
+  %%% 
+! %%%
+! 
+! \newcommand{\setstretch}[1]{%   %%% AME setup to use setspace macros
+!   \def\baselinestretch{#1}%
+!   \@currsize
+! }
+! 
+! \newcommand{\SetSinglespace}[1]{%
+!   \def\setspace@singlespace{#1}%
+! }
+! 
+! \SetSinglespace{1}
+! 
+! \newcommand{\singlespacing}{%
+!   \setstretch {\setspace@singlespace}%  normally 1
+!   \vskip \baselineskip  % Correction for coming into singlespace
+! }
+! 
+! \newcommand{\onehalfspacing}{%
+!   \setstretch{1.25}%  default
+!   \ifcase \@ptsize \relax % 10pt
+!     \setstretch {1.25}%
+!   \or % 11pt
+!     \setstretch {1.213}%
+!   \or % 12pt
+!     \setstretch {1.241}%
+!   \fi
+! }
+! 
+! \newcommand{\doublespacing}{%
+!   \setstretch {1.667}%  default
+!   \ifcase \@ptsize \relax % 10pt
+!     \setstretch {1.667}%
+!   \or % 11pt
+!     \setstretch {1.618}%
+!   \or % 12pt
+!     \setstretch {1.655}%
+!   \fi
+! }
+! 
+! 
+! %%%
+! %%% AME:  This is to correct spacing after the tabular env.
+! %%% according to the maintainers of setspace
+! %%%
+! 
+! \def\@setsize#1#2#3#4{%
+!   % Modified 1993.04.07--GDG per KPC
+!   \@nomath#1%
+!   \let\@currsize#1%
+!   \baselineskip #2%
+!   \baselineskip \baselinestretch\baselineskip
+!   \parskip \baselinestretch\parskip
+!   \setbox\strutbox \hbox{%
+!     \vrule height.7\baselineskip
+!            depth.3\baselineskip
+!            width\z@}%
+!   \skip\footins \baselinestretch\skip\footins
+!   \normalbaselineskip\baselineskip#3#4}
+! 
+! 
+! %%%
+! %%% Adjust the spacing for floats (reset to single space)
+! %%%
+! 
+! \let\latex@xfloat=\@xfloat
+! \def\@xfloat #1[#2]{%
+!   \latex@xfloat #1[#2]%
+!   \def\baselinestretch{\setspace@singlespace}%
+!   \normalsize
+! }
+! 
+! 
+! %%% 
+! %%% Footnotes, AME, did not bring over minipage footnotes
+! %%% 
+! 
+! \long\def\@footnotetext#1{%
+!   \insert\footins{%
+!     \def\baselinestretch {\setspace@singlespace}%
+!     \reset@font\footnotesize
+!     \interlinepenalty\interfootnotelinepenalty
+      \splittopskip\footnotesep
+      \splitmaxdepth \dp\strutbox \floatingpenalty \@MM
+!     \hsize\columnwidth
+!     \@parboxrestore
+!     \protected@edef\@currentlabel{%
+!       \csname p@footnote\endcsname\@thefnmark
+!     }%
+!     \color@begingroup
+!       \@makefntext{%
+!         \rule\z@\footnotesep\ignorespaces#1\@finalstrut\strutbox}%
+!     \color@endgroup}}
+! 
+! %%%
+! %%% AME Fix the spacing around display math
+! %%%
+! \newcommand{\displayskipstretch}{\baselinestretch}
+! \newcommand{\setdisplayskipstretch}[1]{\renewcommand{\displayskipstretch}{#1}}
+! \everydisplay\expandafter{%
+!   \the\everydisplay
+!   \abovedisplayskip \displayskipstretch\abovedisplayskip
+!   \belowdisplayskip \displayskipstretch\belowdisplayskip
+!   \abovedisplayshortskip \displayskipstretch\abovedisplayshortskip
+!   \belowdisplayshortskip \displayskipstretch\belowdisplayshortskip
+! }
+! 
+! %%%
+! %%% AME Modified to use the setspace style commands
+! %%% 
+! 
+! \newcommand{\restore@spacing}{%
+!     \par
+!     \vskip \parskip
+!     \vskip \baselineskip
+!   \endgroup
+!   \vskip -\parskip
+!   \vskip -\baselineskip
+! }
+! 
+! \newenvironment{spacing}[1]{%
+!   \par
+!   \begingroup             
+!   \setstretch {#1}%
+! }{ 
+!   \restore@spacing
+! }
+! 
